@@ -1,0 +1,41 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h4>Asistencias</h4>
+            <p>Seleccione una fecha para revisar las asistencias.</p>
+            <p-calendar [(ngModel)]="selectedDate" (onSelect)="onDateSelect($event)" dateFormat="dd-mm-yy"></p-calendar>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="attendanceList.length > 0" class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h4>Lista de Asistencias</h4>
+            <p-table [value]="attendanceList" responsiveLayout="scroll" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Fin</th>
+                        <th>Estado</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-attendance>
+                    <tr>
+                        <td>{{attendance.first_name}} {{attendance.last_name}}</td>
+                        <td>{{attendance.email}}</td>
+                        <td>{{formatDate(attendance.init_date)}}</td>
+                        <td>{{formatDate(attendance.end_date)}}</td>
+                        <td>
+                            <span [ngClass]="attendance.status === 'Presente' ? 'status-present' : 'status-absent'">
+                                <p-badge [value]="attendance.status" [severity]="attendance.status === 'Presente' ? 'success' : 'danger'"></p-badge>
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
