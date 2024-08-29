@@ -62,8 +62,13 @@ export class AppMenuComponent implements OnInit {
                     },
                     {
                         label: 'Asistencias',
-                        icon: 'pi pi-fw pi-calendar',
+                        icon: 'pi pi-fw pi-check-square',
                         routerLink: ['/pages/attendances']
+                    },
+                    {
+                        label: 'Eventos',
+                        icon: 'pi pi-fw pi-calendar',
+                        routerLink: ['/pages/events']
                     },
                     {
                         label: 'Timeline',

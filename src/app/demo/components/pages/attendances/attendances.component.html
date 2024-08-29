@@ -3,7 +3,7 @@
         <div class="card">
             <h4>Asistencias</h4>
             <p>Seleccione una fecha para revisar las asistencias.</p>
-            <p-calendar [(ngModel)]="selectedDate" (onSelect)="onDateSelect($event)" dateFormat="dd-mm-yy"></p-calendar>
+            <p-calendar [(ngModel)]="selectedDate" [showIcon]="true"  (onSelect)="onDateSelect($event)" dateFormat="dd-mm-yy"></p-calendar>
         </div>
     </div>
 </div>
