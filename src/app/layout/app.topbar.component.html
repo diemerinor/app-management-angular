@@ -1,7 +1,7 @@
 <div class="layout-topbar">
-    <a class="layout-topbar-logo" routerLink="">
+    <a class="layout-topbar-logo" (click)="redirectOnClick()">
         <img src="assets/layout/images/{{layoutService.config().colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.svg" alt="logo">
-        <span>Dynamics</span>
+        <span>DynamicsS</span>
     </a>
 
     <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
@@ -24,6 +24,10 @@
         <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">
             <i class="pi pi-cog"></i>
             <span>Settings</span>
+        </button>
+        <button class="p-link layout-topbar-button" (click)="logout()">
+            <i class="pi pi-sign-out"></i>
+            <span>Logout</span>
         </button>
     </div>
 </div>

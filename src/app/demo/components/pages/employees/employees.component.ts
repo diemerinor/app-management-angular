@@ -44,7 +44,7 @@ export class EmployeesComponent implements OnInit {
     ngOnInit() {
         console.log("entré")
         this.productService.getProducts().then(data => this.products = data);
-        this.userService.getAllUsers().subscribe(res=>{
+        this.userService.getAllUsersWithRoles().subscribe(res=>{
             console.log("los usuarios son:")
             console.log(res)
             this.userList = res;

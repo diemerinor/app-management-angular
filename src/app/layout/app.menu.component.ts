@@ -1,6 +1,8 @@
-import { OnInit } from '@angular/core';
+import {ElementRef, OnInit} from '@angular/core';
 import { Component } from '@angular/core';
 import { LayoutService } from './service/app.layout.service';
+import {Router} from "@angular/router";
+import {AuthService} from "../auth/auth.service";
 
 @Component({
     selector: 'app-menu',
@@ -10,14 +12,24 @@ export class AppMenuComponent implements OnInit {
 
     model: any[] = [];
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(public layoutService: LayoutService,
+                public router: Router,
+                public authService: AuthService) { }
 
     ngOnInit() {
+        let home = "";
+        if (this.authService.isLoggedIn()) {
+            // Redirige al dashboard si el usuario está autenticado
+            home = '/dashboard';
+        } else {
+            // Redirige al login si no está autenticado
+            home = '/auth/login'
+        }
         this.model = [
             {
                 label: 'Home',
                 items: [
-                    { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }
+                    { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: [home] }
                 ]
             },
             {

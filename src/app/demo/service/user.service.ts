@@ -8,6 +8,10 @@ export class UserService {
         return this.http.get<any>('http://localhost:3001/api/users');
     }
 
+    getAllUsersWithRoles() {
+        return this.http.get<any>('http://localhost:3001/api/users/with-roles/all');
+    }
+
     putUser(id:any,userDto){
         return this.http.put(`http://localhost:3001/api/users/${id}`,userDto);
     }
