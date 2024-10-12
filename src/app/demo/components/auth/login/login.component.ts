@@ -21,7 +21,7 @@ import {AuthenticationService} from "../../../service/authentication.service";
 export class LoginComponent {
 
     valCheck: string[] = ['remember'];
-    email: string = '';
+    code: string = '';
     password: string = '';
 
     constructor(
@@ -32,10 +32,10 @@ export class LoginComponent {
     ) {}
 
     login() {
-        if (this.email && this.password) {
+        if (this.code && this.password) {
             // Llama al método de autenticación del AuthenticationService
             let request = {
-                email: this.email,
+                code: this.code,
                 password: this.password
             }
             this.authService.login(request).subscribe({
@@ -44,6 +44,7 @@ export class LoginComponent {
                     if (response.success) {  // Asegúrate de manejar correctamente la respuesta del servidor
                         // Redirige al dashboard si el login es exitoso
                         console.log("entro")
+                        this.authService.setTheme(response.dark_mode)
                         this.authService.setToken(response.token);
                         this.authService.redirectToDashboardIfLoggedIn();
                         //this.router.navigate(['/dashboard']);

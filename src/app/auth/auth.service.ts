@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import {AppConfigComponent} from "../layout/config/app.config.component";
+import {LayoutService} from "../layout/service/app.layout.service";
 
 @Injectable({
     providedIn: 'root'
@@ -9,9 +11,10 @@ import { Router } from '@angular/router';
 export class AuthService {
 
     private readonly TOKEN_KEY = 'authToken';  // Clave para el almacenamiento del token en localStorage
+    private readonly DARK_MODE = 'darkMode';
     private readonly endpoint = '/api/auth/login';  // Endpoint de login, cámbialo según sea necesario
 
-    constructor(private http: HttpClient, private router: Router) {}
+    constructor(private http: HttpClient, private router: Router, private layoutService: LayoutService) { }
 
     // Método para autenticar al usuario
     login(request): Observable<any> {
@@ -23,6 +26,21 @@ export class AuthService {
         localStorage.setItem(this.TOKEN_KEY, token);
     }
 
+    setTheme(darkMode: boolean): void {
+        console.log("darkMode: ", darkMode);
+        let valueTheme = null;
+        if(darkMode){
+            valueTheme = 'bootstrap4-dark-blue'
+        }else {
+            valueTheme = 'bootstrap4-light-blue'
+        }
+        localStorage.setItem(this.DARK_MODE,String(darkMode))
+        this.layoutService.config.update((config) => ({
+            ...config,
+            theme: valueTheme,
+        }));
+    }
+
     // Método para obtener el token almacenado
     getToken(): string | null {
         return localStorage.getItem(this.TOKEN_KEY);
@@ -31,7 +49,12 @@ export class AuthService {
     // Método para verificar si el usuario está autenticado
     isLoggedIn(): boolean {
         // Verificamos si el token está presente en el localStorage
+        console.log("entro al isLoggedIn")
         const token = this.getToken();
+        if(token){
+            console.log("entro al token")
+            this.setTheme(localStorage.getItem(this.DARK_MODE) == 'true');
+        }
         return !!token;
     }
 
